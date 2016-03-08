@@ -1,4 +1,5 @@
-import hypothesis
+from hypothesis import strategies as st
+from hypothesis import given
 
 import tam
 import tam.defs
@@ -35,30 +36,21 @@ def test_glue_label_defaults():
     assert tam.defs.eastlabel(test_tile) == ""
     assert tam.defs.westlabel(test_tile) == ""
 
+@given(st.fixed_dictionaries({
+  Direction.North: st.builds(Glue, st.text(), st.integers()),
+  Direction.South: st.builds(Glue, st.text(), st.integers()),
+  Direction.West: st.builds(Glue, st.text(), st.integers()),
+  Direction.East: st.builds(Glue, st.text(), st.integers()),
+}))
+def test_glue_properties(g):
+    test_tile = tam.defs.new_tile("test", glues=g)
 
-def test_glue_strength():
-    test_tile = tam.defs.new_tile("test", glues={
-        Direction.North: Glue("", 1),
-        Direction.South: Glue("", 2),
-        Direction.West: Glue("", 3),
-        Direction.East: Glue("", 4),
-    })
+    assert tam.defs.northbind(test_tile) == g[Direction.North].strength
+    assert tam.defs.southbind(test_tile) == g[Direction.South].strength
+    assert tam.defs.westbind(test_tile) == g[Direction.West].strength
+    assert tam.defs.eastbind(test_tile) == g[Direction.East].strength
 
-    assert tam.defs.northbind(test_tile) == 1
-    assert tam.defs.southbind(test_tile) == 2
-    assert tam.defs.westbind(test_tile) == 3
-    assert tam.defs.eastbind(test_tile) == 4
-
-
-def test_glue_label():
-    test_tile = tam.defs.new_tile("test", glues={
-        Direction.North: Glue("a", 1),
-        Direction.South: Glue("b", 2),
-        Direction.West: Glue("c", 3),
-        Direction.East: Glue("d", 4),
-    })
-
-    assert tam.defs.northlabel(test_tile) == "a"
-    assert tam.defs.southlabel(test_tile) == "b"
-    assert tam.defs.westlabel(test_tile) == "c"
-    assert tam.defs.eastlabel(test_tile) == "d"
+    assert tam.defs.northlabel(test_tile) == g[Direction.North].label
+    assert tam.defs.southlabel(test_tile) == g[Direction.South].label
+    assert tam.defs.westlabel(test_tile) == g[Direction.West].label
+    assert tam.defs.eastlabel(test_tile) == g[Direction.East].label
