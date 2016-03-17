@@ -1,6 +1,6 @@
-from collections import namedtuple
 from enum import Enum
 
+from pyrsistent import field, PRecord, pmap_field
 import toolz
 
 
@@ -23,10 +23,20 @@ class Direction(Enum):
             raise TypeError("Invalid direction")
 
 
-Glue = namedtuple("Glue", ('label', 'strength'))
+class Glue(PRecord):
+    label = field(str, initial="")
+    strength = field(int, initial=0,
+                     invariant=lambda x: (x in (0, 1, 2), "invalid strength"))
 
 
-Tile = namedtuple("Tile", ("name", "label", "tilecolor", "textcolor", "concentration", "glues"))
+class Tile(PRecord):
+    name = field(str)
+    label = field(str)
+    tilecolor = field(str)  # TODO: enum for colors?
+    textcolor = field(str)
+    concentration = field(int)
+    glues = pmap_field(key_type=Direction, value_type=Glue)  # TODO: invariant?
+
 
 
 def dirbind(tile, direction=Direction.North):
@@ -52,13 +62,18 @@ westlabel = toolz.partial(dirlabel, direction=Direction.West)
 def new_tile(name, label="", tilecolor="white", textcolor="black", concentration=1, glues=None):
     if glues is None:
         glues = {
-            Direction.North: Glue("", 0),
-            Direction.South: Glue("", 0),
-            Direction.West: Glue("", 0),
-            Direction.East: Glue("", 0),
+            Direction.North: Glue(label="", strength=0),
+            Direction.South: Glue(label="", strength=0),
+            Direction.West: Glue(label="", strength=0),
+            Direction.East: Glue(label="", strength=0),
         }
     # TODO: validate
-    return Tile(name, label, tilecolor, textcolor, concentration, glues)
+    return Tile(name=name,
+                label=label,
+                tilecolor=tilecolor,
+                textcolor=textcolor,
+                concentration=concentration,
+                glues=glues)
 
 
 def format_tile(tile):

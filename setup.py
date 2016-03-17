@@ -61,13 +61,13 @@ setup(
         'Topic :: Utilities',
     ],
     keywords=[
-        # eg: 'keyword1', 'keyword2', 'keyword3',
+        "tile", "assembly", "model", "modules",
     ],
     install_requires=[
-        # eg: 'aspectlib==1.1.1', 'six>=1.7',
         "enum34",
         "hypothesis",
         "toolz",
+        "pyrsistent"
     ],
     extras_require={
         # eg:

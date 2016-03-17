@@ -7,6 +7,7 @@ from tam.defs import Direction
 from tam.defs import Glue
 from tam.defs import Tile
 
+glue_strength_st = st.integers(min_value=0, max_value=2)
 
 def test_main():
     assert tam  # use your library here
@@ -36,11 +37,12 @@ def test_glue_label_defaults():
     assert tam.defs.eastlabel(test_tile) == ""
     assert tam.defs.westlabel(test_tile) == ""
 
+
 @given(st.fixed_dictionaries({
-  Direction.North: st.builds(Glue, st.text(), st.integers()),
-  Direction.South: st.builds(Glue, st.text(), st.integers()),
-  Direction.West: st.builds(Glue, st.text(), st.integers()),
-  Direction.East: st.builds(Glue, st.text(), st.integers()),
+  Direction.North: st.builds(Glue, label=st.text(), strength=glue_strength_st),
+  Direction.South: st.builds(Glue, label=st.text(), strength=glue_strength_st),
+  Direction.West: st.builds(Glue, label=st.text(), strength=glue_strength_st),
+  Direction.East: st.builds(Glue, label=st.text(), strength=glue_strength_st)
 }))
 def test_glue_properties(g):
     test_tile = tam.defs.new_tile("test", glues=g)
