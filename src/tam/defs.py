@@ -35,7 +35,7 @@ class Tile(PRecord):
     tilecolor = field(str)  # TODO: enum for colors?
     textcolor = field(str)
     concentration = field(int)
-    glues = pmap_field(key_type=Direction, value_type=Glue)  # TODO: invariant?
+    glues = pmap_field(key_type=(Direction, type(Direction.North)), value_type=Glue)  # TODO: invariant?
 
 
 
