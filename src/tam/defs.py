@@ -50,6 +50,13 @@ class Tile(PRecord):
                        value_type=Glue)  # TODO: invariant?
 
 
+def join(tt1, tt2):
+    pass
+
+
+def add_transition():
+    pass
+
 
 def dirbind(tile, direction=Direction.North):
     return tile.glues[direction].strength
