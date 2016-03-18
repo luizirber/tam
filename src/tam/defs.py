@@ -3,6 +3,10 @@ from enum import Enum
 from pyrsistent import field, PRecord, pmap_field
 import toolz
 
+try:
+    basestring
+except NameError:
+    basestring = str
 
 __all__ = ["Direction", "Glue",
            "add_transition", "join",
@@ -31,18 +35,19 @@ class Direction(Enum):
 
 
 class Glue(PRecord):
-    label = field(str, initial="")
+    label = field(basestring, initial="")
     strength = field(int, initial=0,
                      invariant=lambda x: (x in (0, 1, 2), "invalid strength"))
 
 
 class Tile(PRecord):
-    name = field(str)
-    label = field(str)
-    tilecolor = field(str)  # TODO: enum for colors?
-    textcolor = field(str)
+    name = field(basestring)
+    label = field(basestring)
+    tilecolor = field(basestring)  # TODO: enum for colors?
+    textcolor = field(basestring)
     concentration = field(int)
-    glues = pmap_field(key_type=(Direction, type(Direction.North)), value_type=Glue)  # TODO: invariant?
+    glues = pmap_field(key_type=(Direction, type(Direction.North)),
+                       value_type=Glue)  # TODO: invariant?
 
 
 
