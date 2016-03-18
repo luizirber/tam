@@ -2,8 +2,7 @@ from hypothesis import strategies as st
 from hypothesis import given
 
 import tam
-from tam import Direction
-from tam import Glue
+from tam import Direction, Glue
 
 glue_strength_st = st.integers(min_value=0, max_value=2)
 

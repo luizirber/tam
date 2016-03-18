@@ -1,7 +1,7 @@
 from enum import Enum
 
-from pyrsistent import field, PRecord, pmap_field
 import toolz
+from pyrsistent import PRecord, field, pmap_field
 
 try:
     basestring
