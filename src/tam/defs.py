@@ -4,6 +4,13 @@ from pyrsistent import field, PRecord, pmap_field
 import toolz
 
 
+__all__ = ["Direction", "Glue",
+           "add_transition", "join",
+           "Tile", "format_tile", "new_tile",
+           "dirbind", "eastbind", "westbind", "northbind", "southbind",
+           "dirlabel", "eastlabel", "westlabel", "northlabel", "southlabel"]
+
+
 class Direction(Enum):
     North = 1
     South = 2
