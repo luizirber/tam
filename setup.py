@@ -24,7 +24,7 @@ def read(*names, **kwargs):
 
 setup(
     name='tam',
-    version='0.1.1',
+    version='0.1.2',
     license='BSD',
     description='Tile Assembly Model modules',
     long_description='%s\n%s' % (
