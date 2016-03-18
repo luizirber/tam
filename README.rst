@@ -40,7 +40,7 @@ Overview
     :target: https://landscape.io/github/luizirber/tam/master
     :alt: Code Quality Status
 
-.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat
+.. |codacy| image:: https://img.shields.io/codacy/7c5f7a5118874cf089833ae08ef15d23.svg?style=flat
     :target: https://www.codacy.com/app/luizirber/tam
     :alt: Codacy Code Quality Status
 
