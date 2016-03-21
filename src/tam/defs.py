@@ -46,8 +46,7 @@ class Tile(PRecord):
     tilecolor = field(basestring)  # TODO: enum for colors?
     textcolor = field(basestring)
     concentration = field(int)
-    glues = pmap_field(key_type=(Direction, type(Direction.North)),
-                       value_type=Glue)  # TODO: invariant?
+    glues = pmap_field(key_type=(Direction,), value_type=Glue)  # TODO: invariant?
 
 
 def join(tt1, tt2):
