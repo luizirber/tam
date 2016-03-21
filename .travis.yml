@@ -20,13 +20,13 @@ before_install:
   - uname -a
   - lsb_release -a
 install:
-  - pip install tox
+  - travis_retry pip install tox
   - virtualenv --version
   - easy_install --version
   - pip --version
   - tox --version
 script:
-  - tox -v
+  - travis_retry tox -v
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
